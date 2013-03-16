@@ -26,7 +26,7 @@ foreach ($tables as $table) {
         $columns = $db->describeTable($table);
         foreach ($columns as $column => $info) {
             if (!$pkey && isset($info['PRIMARY'])) $pkey = $column;
-            $result = $db->fetchAll("SELECT {$pkey},{$column} FROM {$table} WHERE {$column} like (?)", '%'.SEARCH.'%');
+            $result = $db->fetchAll("SELECT `{$pkey}`,`{$column}` FROM `{$table}` WHERE `{$column}` like (?)", '%'.SEARCH.'%');
             foreach ($result as $r) {
                 $where = $db->quoteInto($pkey.' = ?', $r[$pkey]);
                 $str = $r[$column];
@@ -59,7 +59,9 @@ foreach ($tables as $table) {
  * @since  2013-02-18
  */
 function replaceUrl(&$val) {
-    $val = str_replace(SEARCH,REPLACE,$val);
+    if(!is_object($val)){
+        $val = str_replace(SEARCH,REPLACE,$val);
+    }
 }
 /**
  * TODO: short description.
