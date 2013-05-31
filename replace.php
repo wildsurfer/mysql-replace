@@ -59,7 +59,7 @@ foreach ($tables as $table) {
  * @since  2013-02-18
  */
 function replaceUrl(&$val) {
-    if(!is_object($val)){
+    if(is_string($val)){
         $val = str_replace(SEARCH,REPLACE,$val);
     }
 }
