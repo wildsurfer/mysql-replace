@@ -1,7 +1,7 @@
 <?php
 //config
-define('SEARCH','http://dev2.artmyweb.com');
-define('REPLACE','http://new.domain.com');
+if (!defined('SEARCH')) define('SEARCH','http://dev2.artmyweb.com');
+if (!defined('REPLACE')) define('REPLACE','http://new.domain.com');
 $db_options = array(
     'host'     => 'localhost',
     'username' => 'root',
