@@ -1,15 +1,15 @@
 <?php
+if(isset($_GET['replace'])){
 //config
-if (!defined('SEARCH')) define('SEARCH','http://dev2.artmyweb.com');
-if (!defined('REPLACE')) define('REPLACE','http://new.domain.com');
+if (!defined('SEARCH')) define('SEARCH',$_GET['old_host']);
+if (!defined('REPLACE')) define('REPLACE',$_GET['new_host']);
 $db_options = array(
-    'host'     => 'localhost',
-    'username' => 'root',
-    'password' => '1',
-    'dbname'   => 'wptest'
+    'host'     => $_GET['db_host'],
+    'username' => $_GET['db_user'],
+    'password' => $_GET['db_pass'],
+    'dbname'   => $_GET['db_db']
 );
-$db_prefix = 'wp_';
-
+$db_prefix = $_GET['db_prefix'];
 // nothing to config below
 set_time_limit (60);
 require_once ('Zend/Db/Adapter/Pdo/Mysql.php');
@@ -133,6 +133,9 @@ foreach ($html_tables as $tkey => $table) {
     echo('</table>');
 }
 
-if ($html_tables && DRY_RUN) echo('<a class="save" href="?dry_run=0">Save</a>');
+if ($html_tables && DRY_RUN) echo('<a class="save" href="?dry_run=0&old_host='.$_GET['old_host'].'&new_host='.$_GET['new_host'].'&db_host='.$_GET['db_host'].'&db_user='.$_GET['db_user'].'&db_pass='.$_GET['db_pass'].'&db_db='.$_GET['db_db'].'&db_prefix='.$_GET['db_prefix'].'">Save</a>');
 
 
+}else{
+	echo "Bad Request!!!";
+}
